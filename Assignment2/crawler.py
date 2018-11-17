@@ -15,11 +15,11 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 ua = UserAgent()
 db = redis.StrictRedis(host='127.0.0.1', port=6379, decode_responses=True)
-THREAD_NUM = 25
+THREAD_NUM = 50
 ip_dict = {}
 
 
-def Parser(html, raw_movie_id, proxy):
+def parser(html, raw_movie_id, proxy):
     """
         Check the Sent html
     """
@@ -71,7 +71,11 @@ def get_and_parse(number):
     }
     raw_movie_id = db.spop('raw_movie_id')
     url = 'https://www.amazon.com/dp/' + raw_movie_id
-    proxy = random.choice(requests.get('http://127.0.0.1:5010/get_all/').json())
+    r = requests.get('http://127.0.0.1:5010/get_all/').json()
+    if not r:
+        proxy = '127.0.0.1:1087'
+    else:
+        proxy = random.choice(r)
     try:
         proxier = {'https' : 'http://' + proxy}
         response = requests.get(url, headers=header, proxies=proxier, timeout=10, verify=False)
@@ -84,7 +88,7 @@ def get_and_parse(number):
             print('Number ' + str(number))
             print('Page 404' + '\n\n')
         elif response.status_code == 200: # get tittle
-            if Parser(response.text, raw_movie_id, proxy):
+            if parser(response.text, raw_movie_id, proxy):
                 print('Getting ' + url)
                 print('Number ' + str(number))
                 print('Yes!' + '\n\n')
