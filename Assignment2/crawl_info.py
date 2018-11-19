@@ -1,5 +1,5 @@
 """
-    Crawl the 25w data again to find the ID of the real movies
+    Crawl info for further use
 """
 import time
 import random
@@ -69,6 +69,7 @@ def get_and_parse(number):
         q=0.9,image/webp,image/apng,*/*;q=0.8',
         'accept-encoding': 'gzip, deflate, br'
     }
+
     raw_movie_id = db.spop('raw_movie_id')
     url = 'https://www.amazon.com/dp/' + raw_movie_id
     r = requests.get('http://127.0.0.1:5010/get_all/').json()
@@ -104,7 +105,7 @@ def get_and_parse(number):
             print(str(response.status_code) + '\n\n')
 
 if __name__ == '__main__':
-    for i in range(100000):
+    for i in range(250000):
         while threading.active_count() > THREAD_NUM: # Change
             t = 5 * random.random()
             if t < 0.5:
