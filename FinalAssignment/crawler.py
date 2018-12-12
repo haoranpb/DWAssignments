@@ -15,8 +15,8 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 ua = UserAgent()
 db = redis.StrictRedis(host='127.0.0.1', port=6379, decode_responses=True)
-THREAD_NUM = 3
-NUM = 200
+THREAD_NUM = 70
+NUM = 30000
 ip_dict = {}
 
 
@@ -24,17 +24,6 @@ def parser(html, raw_movie_id, proxy):
     """
         Check the Sent html
     """
-    if 'Director' not in html: # A movie must have a director
-        return False
-    if 'Season' in html: # TV show
-        return False
-    if 'Fitness' in html: # Not a moive
-        return False
-    if 'Music Videos' in html:
-        return False
-    if 'Concerts' in html:
-        return False
-
     soup = BeautifulSoup(html, 'lxml')
     element = soup.find(id='productTitle')
     movie = {'id': raw_movie_id}
@@ -61,6 +50,17 @@ def parser(html, raw_movie_id, proxy):
             movie = get_normal_page_info(soup, movie)
         except Exception:
             pass
+
+    if 'Director' not in html: # A movie must have a director
+        return False
+    if 'Fitness' in html: # Not a moive
+        return False
+    if 'Music Videos' in html:
+        return False
+    if 'Concerts' in html:
+        return False
+    if 'title' in movie and 'Season' in movie['title']:
+        return False
 
     save_movie(movie, raw_movie_id)
     return True
@@ -95,8 +95,7 @@ def get_and_parse(number):
     }
     raw_movie_id = db.spop('raw_movie_id')
     url = 'https://www.amazon.com/dp/' + raw_movie_id
-    # r = requests.get('http://127.0.0.1:5010/get_all/').json()
-    r = None
+    r = requests.get('http://127.0.0.1:5010/get_all/').json()
     if not r:
         proxy = '127.0.0.1:1087'
     else:
@@ -173,7 +172,7 @@ def get_prime_page_info(soup, movie):
 if __name__ == '__main__':
     for i in range(NUM):
         while threading.active_count() > THREAD_NUM: # Change
-            t = 5 * random.random()
+            t = 4 * random.random()
             if t < 0.5:
                 t += 1.5
             elif t > 3.5:

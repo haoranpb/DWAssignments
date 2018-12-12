@@ -1,20 +1,26 @@
 <template>
   <div id="app">
     <el-container>
-      <el-header>Header</el-header>
-      <el-main>Main</el-main>
+      <el-header>
+        <movie-header />
+      </el-header>
+      <el-main style="padding-left: 15%; padding-right: 15%; padding-top: 3%">
+        <router-view/>
+      </el-main>
     </el-container>
   </div>
 </template>
 
 <script>
+import MovieHeader from './components/MovieHeader'
+
 export default {
-  name: 'app',
   components: {
-    
+    MovieHeader
   }
 }
 </script>
+
 
 <style>
 #app {
@@ -29,8 +35,7 @@ html, body{
   padding: 0;
 }
 .el-header{
-    background-color: #B3C0D1;
-    color: #333;
+    background-color: black;
     text-align: center;
     line-height: 60px;
 }
@@ -38,6 +43,5 @@ html, body{
   background-color: #E9EEF3;
   color: #333;
   text-align: center;
-  line-height: 160px;
 }
 </style>
