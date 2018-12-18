@@ -2,8 +2,7 @@
   <div id="result">
     <el-table
       :data="movieData"
-      height="550"
-      border
+      height="550" stripe
       style="width: 100%">
       <el-table-column
         prop="date"
@@ -28,7 +27,12 @@ export default {
   data(){
     return {
       movieData: [{
-
+        id: '',
+        genre: '',
+        actor: '',
+        director: '',
+        time: '',
+        title: ''
       }]
     }
   }
@@ -48,6 +52,7 @@ h1{
 }
 #result{
   display: block;
+  margin-top: 20px;
 }
 hr{
   display: block;

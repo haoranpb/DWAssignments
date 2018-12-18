@@ -40,7 +40,7 @@ html, body{
     line-height: 60px;
 }
 .el-main {
-  background-color: #E9EEF3;
+  background-color: rgb(255, 255, 255);
   color: #333;
   text-align: center;
 }

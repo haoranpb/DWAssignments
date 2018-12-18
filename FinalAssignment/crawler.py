@@ -15,8 +15,8 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 ua = UserAgent()
 db = redis.StrictRedis(host='127.0.0.1', port=6379, decode_responses=True)
-THREAD_NUM = 70
-NUM = 30000
+THREAD_NUM = 50
+NUM = 20000
 ip_dict = {}
 
 
