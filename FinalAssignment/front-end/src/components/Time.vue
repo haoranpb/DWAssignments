@@ -2,23 +2,23 @@
   <div>
     <div class="time">
       <h2>每个请求占一秒的百分比</h2>
-      <div class="label">
-        <el-tag type="success">标签二</el-tag>
-        <el-tag type="info">标签三</el-tag>
-        <el-tag type="warning">标签四</el-tag>
-        <el-tag type="danger">标签五</el-tag>
-      </div>
-      <el-progress style="margin-top:15px;" :text-inside="true" :stroke-width="20" :percentage="10"></el-progress>
-      <el-progress :text-inside="true" :stroke-width="20" :percentage="80" color="rgba(142, 113, 199, 0.7)"></el-progress>
-      <el-progress :text-inside="true" :stroke-width="20" :percentage="100" status="success"></el-progress>
-      <el-progress :text-inside="true" :stroke-width="20" :percentage="50" status="exception"></el-progress>
+      <el-progress style="margin-top:15px;" :text-inside="true" :stroke-width="20" :percentage="usedtime.redis"></el-progress>
+      <el-progress :text-inside="true" :stroke-width="20" :percentage="usedtime.neo4j" color="rgba(142, 113, 199, 0.7)"></el-progress>
+      <el-progress :text-inside="true" :stroke-width="20" :percentage="usedtime.influxdb" status="success"></el-progress>
+      <el-progress :text-inside="true" :stroke-width="20" :percentage="usedtime.zonghedb" status="exception"></el-progress>
+    </div>
+    <div class="label">
+      <p>Redis</p>
+      <p>Neo4j</p>
+      <p>Influxdb</p>
+      <p>综合DB</p>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  
+  props: ['usedtime']
 }
 </script>
 
@@ -28,12 +28,12 @@ export default {
   float: right;
 }
 .label{
-  height: 40px;
+  float: right;
+  width: 8%;
+  margin-top: 5.5%;
 }
-.el-tag{
-  margin-right: 10px;
-  margin-left: 10px;
-  margin-bottom: 0;
+.label p{
+  height: 35px;
 }
 .el-progress{
   margin-top: 30px;
@@ -41,5 +41,6 @@ export default {
 }
 h2{
   font-size: 1.2em;
+  margin-bottom: 8%;
 }
 </style>

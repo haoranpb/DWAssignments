@@ -4,3 +4,4 @@ cookie.txt
 movieName.txt
 *.txt
 FinalAssignment/test.py
+*.pyc

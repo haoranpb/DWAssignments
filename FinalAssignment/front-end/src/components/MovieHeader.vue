@@ -1,7 +1,8 @@
 <template>
   <div id="nav">
     <router-link to="/">MovieQuerier</router-link> | 
-    <router-link to="/relation">RelationQuerier</router-link>
+    <router-link to="/relation">RelationQuerier</router-link> | 
+    <router-link to="/graph">Graph</router-link>
   </div>
 </template>
 

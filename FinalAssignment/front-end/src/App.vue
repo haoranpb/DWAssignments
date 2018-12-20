@@ -35,9 +35,9 @@ html, body{
   padding: 0;
 }
 .el-header{
-    background-color: black;
-    text-align: center;
-    line-height: 60px;
+  background-color: black;
+  text-align: center;
+  line-height: 60px;
 }
 .el-main {
   background-color: rgb(255, 255, 255);
