@@ -71,27 +71,25 @@ export default {
         actor: '',
         genre: ''
       },
-      movieData: [{
-        id: '1652714',
-        genre: 'Action',
-        actor: 'Ludanxer',
-        director: 'Ludan',
-        time: '2018',
-        title: 'Hello World',
-        reviewnum: '20'
-      }]
+      movieData: []
     }
   },
   methods: {
     submit(){
       let obj = this;
       this.$message('正在查询，请稍后！');
-      axios.get('http://172.16.42.50:5000/moviesearch', {
+      let start = '';
+      let end = '';
+      if(this.form.date){
+        start = this.form.date[0];
+        end = this.form.date[1];
+      }
+      axios.get('http://127.0.0.1:5000/moviesearch', {
         params: { 
           title: obj.form.name,
           genre: obj.form.genre,
-          starttime: '',
-          endtime: '',
+          starttime: start,
+          endtime: end,
           actor: obj.form.actor,
           director: obj.form.director
         }
@@ -102,12 +100,12 @@ export default {
           type: 'success'
         });
         obj.movieData = [];
-        //obj.dbtime.redis = response.data['redis']*10;
         // console.log(response.data['redis']);
         // console.log(response.data['influxdb']);
         // console.log(response.data['neo4j']);
         // console.log(response.data['zonghedb']);
-        console.log('hahhaha');
+        console.log(response.data);
+
         for(let key of Object.keys(response.data)){
           if(key!='length'&&key!='redis'&&key!='neo4j'&&key!='zonghedb'&&key!='influxdb'){
             obj.movieData.push(response.data[key]);

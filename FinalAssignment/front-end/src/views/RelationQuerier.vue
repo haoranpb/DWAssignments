@@ -55,8 +55,7 @@ export default {
     submit: function(){
       let obj = this;
       this.$message('正在查询，请稍后！');
-
-      axios.get('http://172.16.42.50:5000/collaboration', {
+      axios.get('http://127.0.0.1:5000/collaboration', {
         params: { 
           actor: obj.form.actor,
           director: obj.form.director
@@ -68,10 +67,11 @@ export default {
           type: 'success'
         });
         obj.relationData = [];
-        obj.dbtime.redis = response.data['redis']*10;
+        // obj.dbtime.redis = response.data['redis']*10;
         // obj.dbtime.influxdb = response.data['influxdb']*10;
         // obj.dbtime.neo4j = response.data['neo4j']*10;
         // obj.dbtime.zonghedb = response.data['zonghedb']*10;
+        console.log(response.data);
         for(let key of Object.keys(response.data)){
           if(key!='len'&&key!='redis'&&key!='neo4j'&&key!='zonghedb'&&key!='influxdb'){
             obj.relationData.push(JSON.parse(response.data[key]));

@@ -102,16 +102,21 @@ export default {
       }
     });
 
-    axios.get('http://192.168.1.100:5000/diagram')
+    axios.get('http://127.0.0.1:5000/diagram')
     .then(function (response) {
       myPieChart.data.labels = response.data['diagramlabels'];
       myPieChart.data.datasets[0].data = response.data['diagramdata'];
       
       myLineChart.data.labels = response.data['chart2labels'];
       myLineChart.data.datasets[0].data = response.data['chart2data'];
+      // console.log(response.data['monthlabels']);
+      // console.log(response.data['monthdata']);
+      myBarChart.data.labels = response.data['monthlabels'];
+      myBarChart.data.datasets[0].data = response.data['monthdata'];
+
       myLineChart.update();
       myPieChart.update();
-      console.log(myLineChart.data.datasets[0].data);
+      myBarChart.update();
     })
     .catch(function () {
       obj.$message.error('糟糕，哪里出了点问题！');
